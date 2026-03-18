@@ -28,7 +28,7 @@ def bronze():
         if not source.exists():
             raise FileNotFoundError(f"Arquivo não encontrado em raw/: {filename}")
 
-        shutil.copy2(source, destination)
+        shutil.copy(source, destination)
         logger.info(f"Bronze: copiado {filename}")
 
     logger.info("Bronze concluída — 5 arquivos em data/bronze/")
