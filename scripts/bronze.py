@@ -1,5 +1,4 @@
 from pathlib import Path
-import shutil
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -15,12 +14,13 @@ RAW_FILES = [
 
 
 def bronze():
+    # --- Caminhos ---
     base_dir = Path(__file__).resolve().parents[1]
     raw_dir = base_dir / "data" / "raw"
     bronze_dir = base_dir / "data" / "bronze"
-
     bronze_dir.mkdir(parents=True, exist_ok=True)
 
+    # --- Cópia ---
     for filename in RAW_FILES:
         source = raw_dir / filename
         destination = bronze_dir / filename
@@ -28,7 +28,10 @@ def bronze():
         if not source.exists():
             raise FileNotFoundError(f"Arquivo não encontrado em raw/: {filename}")
 
-        shutil.copy(source, destination)
+        with open(source, "rb") as f_in:
+            with open(destination, "wb") as f_out:
+                f_out.write(f_in.read())
+
         logger.info(f"Bronze: copiado {filename}")
 
     logger.info("Bronze concluída — 5 arquivos em data/bronze/")
