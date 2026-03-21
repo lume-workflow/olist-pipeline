@@ -34,7 +34,7 @@ ORDER BY total_revenue DESC
 
 ## Architecture
 
-![Architecture Diagram](docs/architechture.png)
+![Architecture Diagram](docs/architecture.png)
 
 The pipeline is organized into three layers:
 
